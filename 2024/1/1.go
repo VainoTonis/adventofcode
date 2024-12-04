@@ -29,7 +29,6 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-
 		if leftRight == 0 {
 			leftColumn = append(leftColumn, number)
 			leftRight = 1
@@ -37,7 +36,6 @@ func main() {
 			rightColumn = append(rightColumn, number)
 			leftRight = 0
 		}
-
 	}
 
 	if err := fileScanner.Err(); err != nil {
@@ -45,17 +43,28 @@ func main() {
 	}
 
 	sort.Ints(leftColumn)
-	fmt.Println(leftColumn)
-
 	sort.Ints(rightColumn)
-	fmt.Println(rightColumn)
 
-	var taskFlag float64
+	var part1Flag float64
 
-	for i := 0; i < len(rightColumn); i++ {
+	for i := 0; i < len(leftColumn); i++ {
 		columnDiff := leftColumn[i] - rightColumn[i]
-		taskFlag = taskFlag + math.Abs(float64(columnDiff))
+		part1Flag = part1Flag + math.Abs(float64(columnDiff))
 	}
 
-	fmt.Println("Part 1 answer: ", taskFlag)
+	fmt.Println("Part 1 answer: ", part1Flag)
+
+	var part2Flag int
+
+	for i := 0; i < len(leftColumn); i++ {
+		var repeats int
+		for _, compareValue := range rightColumn {
+			if compareValue == leftColumn[i] {
+				repeats = repeats + 1
+			}
+		}
+		part2Flag = part2Flag + (leftColumn[i] * repeats)
+	}
+
+	fmt.Println("Part 2 answer: ", part2Flag)
 }
