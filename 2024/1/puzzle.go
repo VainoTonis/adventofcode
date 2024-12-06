@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	listFile, err := os.Open("list")
+	listFile, err := os.Open("puzzleInput")
 	if err != nil {
 		log.Fatal("Failed to open file: ", err)
 		return
